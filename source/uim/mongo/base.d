@@ -3,19 +3,41 @@
 import uim.mongo;
 
 @safe:
-	class BSON {
-		static auto and(string[string] values) { 
-			auto result = BsonObj; 
+	class DBSON {
+		this() {}
+		this(string[string]values) {
+			_bson = Bson.emptyObject;
+			foreach(k, v; values) { _bson[k] = v; }
+		}
+
+		private Bson _bson;
+
+		O and(this O)(string[string] values) { 
 			foreach(k, v; values) result[k] = v; 
-			return result;
+			return cast(O)this;
 		}
-		static auto or(string[string][] values) { 
-			Bson[] conditions;
-			foreach(val; values) conditions~=val.toBSON;
-			return BSON.or(conditions);
+		unittest {	
+			assert(BSON.and(["a":"b", "c":"d"]) == `{"c":"d","a":"b"}`);
 		}
-		static auto or(Bson[] conditions) { return Bson(["$or": Bson(conditions)]); }
+
+		O or(this O)(string[string][] values) { 
+			_bson = _bson.or(BSON(values)); return cast(O)this;
+		}
+		O or(this O)(DBSON values) { _bson = Bson(["$or": values.toBson]); return cast(O)this; }
+		unittest {	
+			assert(BSON(["a":"b"]).or(["c":"d"]) == `{"$or: {"a":"b", "c":"d"}`);
+		}
+
+		bool opEqual(string txt) { return (toString == txt); }
+		Bson toBson() {
+			return _bson;
+		}
+		override string toString() {
+			return _bson.toString;
+		}
 	}
+	auto BSON() { return new DBSON(); }
+	auto BSON(string[string] values) { return new DBSON(values); }
 
 // Create Bson Object 
 auto BsonArray() { return Bson.emptyArray; }
