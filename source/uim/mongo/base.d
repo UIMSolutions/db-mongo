@@ -5,30 +5,52 @@ import uim.mongo;
 @safe:
 	class DBSON {
 		this() {}
-		this(string[string]values) {
+		this(string[string] values) {
 			_bson = Bson.emptyObject;
 			foreach(k, v; values) { _bson[k] = v; }
 		}
 
 		private Bson _bson;
 
+		bool isEmpty() { return (_bson.type == Bson.Type.undefined); }
+		bool isUndefined() { return (_bson.type == Bson.Type.undefined); }
+		bool isArray() { return (_bson.type == Bson.Type.array); }
+		bool isBinData() { return (_bson.type == Bson.Type.binData); }
+		bool isBool() { return (_bson.type == Bson.Type.bool_); }
+		// TODO
+
 		O and(this O)(string[string] values) { 
-			foreach(k, v; values) result[k] = v; 
+			if (isEmpty) _bson = Bson.emptyObject;
+			foreach(k, v; values) _bson[k] = v; 
 			return cast(O)this;
 		}
 		unittest {	
-			assert(BSON.and(["a":"b", "c":"d"]) == `{"c":"d","a":"b"}`);
+			assert(BSON.and(["a":"b", "c":"d"]) == `{"c":"d","a":"b"}`);			
 		}
 
-		O or(this O)(string[string][] values) { 
-			_bson = _bson.or(BSON(values)); return cast(O)this;
+		O or(this O)(string[string][] values) {
+			DBSON[] bsons; bsons.length = values.length;
+			foreach(i, v; values) bsons[i] = BSON(v);
+			this.or(bsons); 
+			return cast(O)this;
 		}
-		O or(this O)(DBSON values) { _bson = Bson(["$or": values.toBson]); return cast(O)this; }
+		O or(this O)(DBSON[] values) { 
+			Bson[] bsons; bsons.length = values.length;
+			size_t pre = 0;
+			if (!isEmpty) {
+				bsons.length = values.length+1;
+				bsons[0] = _bson;
+				pre = 1;
+			}
+			foreach(i, v; values) bsons[i+pre] = v.toBson;
+			_bson = Bson(["$or": Bson(bsons)]); 
+			return cast(O)this; }
 		unittest {	
-			assert(BSON(["a":"b"]).or(["c":"d"]) == `{"$or: {"a":"b", "c":"d"}`);
+			assert(BSON.or([["a":"b"], ["c":"d"]]) == `{"$or":[{"a":"b"},{"c":"d"}]}`);
+			assert(BSON(["a":"b"]).or([["c":"d"]]) == `{"$or":[{"a":"b"},{"c":"d"}]}`);
 		}
 
-		bool opEqual(string txt) { return (toString == txt); }
+		bool opEquals(string txt) { return (toString == txt); }
 		Bson toBson() {
 			return _bson;
 		}
@@ -65,7 +87,6 @@ Bson and(V)(Bson obj, V[string] conditions) {
 }
 unittest {	
 	assert(["a":"b", "c":"d"].toBSON.and(["x":"y"]).toString == `{"c":"d","a":"b","x":"y"}`, "Error in and");
-	writeln(BSON.and(["a":"b", "c":"d"]));
 }
 
 // OR Operator
@@ -77,11 +98,11 @@ Bson or(string[string][] values) {
 Bson or(Bson[] conditions) { return Bson(["$or": Bson(conditions)]); }
 
 unittest {
-	writeln(or([["a":"b"].toBSON, ["c":"d"].toBSON]));
-	writeln(or([["a":"b"].toBSON, ["c":"d", "x":"y"].toBSON]));
+/*	writeln(or([["a":"b"].toBSON, ["c":"d"].toBSON]));
+	writeln(or[["a":"b"].toBSON, ["c":"d", "x":"y"].toBSON]));
 	writeln(BSON.or([["a":"b"], ["c":"d"]]));
 	writeln(BSON.or([["a":"b"], ["c":"d"]]).and(["x":"y"]));
-	writeln(BSON.or([["a":"b"], ["c":"d"]]).and(["x":"y"]));
+	writeln(BSON.or([["a":"b"], ["c":"d"]]).and(["x":"y"]));*/
 }
 
 // EQ Equal operator
