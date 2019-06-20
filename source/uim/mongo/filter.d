@@ -16,10 +16,11 @@ class DBsonFilter {
     }
 
     private Bson _bson;
+
     /*
     all() - creates an all filter for an array field. 
     */
-    O All(this O, T)(string field, T[] values) {
+    @safe O All(this O, T)(string field, T[] values) {
         if (_bson[field].type != Bson.Type.null_) {
             auto condition = _bson[field];
             condition["$all"] = values.toBson;
@@ -36,13 +37,13 @@ class DBsonFilter {
     }
 
     /*
-    and() - creates an and field. 
+    And() - creates an and field. 
     */
-    O And(this O, T)(string field, T value) {
+    @safe O And(this O, T)(string field, T value) {
         _bson[field] = value;
         return cast(O)this;
     }
-    O And(this O, T)(T[string] values) {
+    @safe O And(this O, T)(T[string] values) {
         _bson = values.toBson;
         return cast(O)this;
     }
@@ -54,7 +55,7 @@ class DBsonFilter {
     /*
     anyEq() - Creates an equality filter for an array field. 
     */
-    O anyEq(this O)() {
+    @safe O anyEq(this O)() {
         // TODO
         return cast(O)this;
     }
@@ -87,7 +88,7 @@ class DBsonFilter {
     /*
     anyGe() - Creates an greater than or equal filter for an array field. 
     */
-    O anyGe(this O, T)(string field, string value) {
+    @safe O anyGe(this O, T)(string field, string value) {
         // TODO
         return cast(O)this;
     }
@@ -95,20 +96,20 @@ class DBsonFilter {
 
     }
 
-    // $bitsAllClear matches documents where all of the bit positions given by the query are clear (i.e. 0) in field.
-    O BitsAllClear(this O)(string field, BsonBinData data) {
+    // $bitsAllClear 
+    @safe O BitsAllClear(this O)(string field, BsonBinData data) {
         auto condition = Bson.emptyObject;
         condition["$bitsAllClear"] = data;
         _bson[field] = condition; 
         return cast(O)this;
     }
-    O BitsAllClear(this O)(string field, int[] positions) {
+    @safe O BitsAllClear(this O)(string field, int[] positions) {
         auto condition = Bson.emptyObject;
         condition["$bitsAllClear"] = positions.toBson;
         _bson[field] = condition; 
         return cast(O)this;
     }
-    O BitsAllClear(this O)(string field, int mask) {
+    @safe O BitsAllClear(this O)(string field, int mask) {
         auto condition = Bson.emptyObject;
         condition["$bitsAllClear"] = mask;
         _bson[field] = condition; 
@@ -119,11 +120,128 @@ class DBsonFilter {
         assert(BsonFilter.BitsAllClear("a", 35) == `{"a":{"$bitsAllClear":35}}`);
     }
 
+    // $bitsAllSet  
+   @safe  O BitsAllSet(this O)(string field, BsonBinData data) {
+        auto condition = Bson.emptyObject;
+        condition["$bitsAllSet"] = data;
+        _bson[field] = condition; 
+        return cast(O)this;
+    }
+    @safe O BitsAllSet(this O)(string field, int[] positions) {
+        auto condition = Bson.emptyObject;
+        condition["$bitsAllSet"] = positions.toBson;
+        _bson[field] = condition; 
+        return cast(O)this;
+    }
+    @safe O BitsAllSet(this O)(string field, int mask) {
+        auto condition = Bson.emptyObject;
+        condition["$bitsAllSet"] = mask;
+        _bson[field] = condition; 
+        return cast(O)this;
+    }
+    unittest{
+        assert(BsonFilter.BitsAllSet("a", [1, 5]) == `{"a":{"$bitsAllSet":[1,5]}}`);
+        assert(BsonFilter.BitsAllSet("a", 35) == `{"a":{"$bitsAllSet":35}}`);
+    }
+
+    // $bitsAnyClear 
+    @safe O BitsAnyClear(this O)(string field, BsonBinData data) {
+        auto condition = Bson.emptyObject;
+        condition["$bitsAnyClear"] = data;
+        _bson[field] = condition; 
+        return cast(O)this;
+    }
+    @safe O BitsAnyClear(this O)(string field, int[] positions) {
+        auto condition = Bson.emptyObject;
+        condition["$bitsAnyClear"] = positions.toBson;
+        _bson[field] = condition; 
+        return cast(O)this;
+    }
+    @safe O BitsAnyClear(this O)(string field, int mask) {
+        auto condition = Bson.emptyObject;
+        condition["$bitsAnyClear"] = mask;
+        _bson[field] = condition; 
+        return cast(O)this;
+    }
+    unittest{
+        assert(BsonFilter.BitsAnyClear("a", [1, 5]) == `{"a":{"$bitsAnyClear":[1,5]}}`);
+        assert(BsonFilter.BitsAnyClear("a", 35) == `{"a":{"$bitsAnyClear":35}}`);
+    }
+
+    // $bitsAnySet  
+    @safe O BitsAnySet(this O)(string field, BsonBinData data) {
+        auto condition = Bson.emptyObject;
+        condition["$bitsAnySet"] = data;
+        _bson[field] = condition; 
+        return cast(O)this;
+    }
+    @safe O BitsAnySet(this O)(string field, int[] positions) {
+        auto condition = Bson.emptyObject;
+        condition["$bitsAnySet"] = positions.toBson;
+        _bson[field] = condition; 
+        return cast(O)this;
+    }
+    @safe O BitsAnySet(this O)(string field, int mask) {
+        auto condition = Bson.emptyObject;
+        condition["$bitsAnySet"] = mask;
+        _bson[field] = condition; 
+        return cast(O)this;
+    }
+    unittest{
+        assert(BsonFilter.BitsAnySet("a", [1, 5]) == `{"a":{"$bitsAnySet":[1,5]}}`);
+        assert(BsonFilter.BitsAnySet("a", 35) == `{"a":{"$bitsAnySet":35}}`);
+    }
+
+    @safe O Comment(this O)(string text) {
+        _bson["$comment"] = text; 
+        return cast(O)this;
+    }
+    unittest{
+        assert(BsonFilter.BitsAnySet("a", [1, 5]) == `{"a":{"$bitsAnySet":[1,5]}}`);
+        assert(BsonFilter.BitsAnySet("a", 35) == `{"a":{"$bitsAnySet":35}}`);
+    }
+
+    @safe O ElemMatch(this O)(string field, Bson condition) {
+        auto match = Bson.emptyObject;
+        match["$elemMatch"] = condition;
+        _bson[field] = match;
+        return cast(O)this;
+    }
+    unittest{
+        // students: { $elemMatch: { school: 102 } }
+    }
+
+    @safe O Meta(this O)(string field, string txt) {
+        auto meta = Bson.emptyObject;
+        meta["$meta"] = Bson(text);
+        _bson[field] = meta;
+        return cast(O)this;
+    }
+    unittest{
+        // students: { $elemMatch: { school: 102 } }
+    }
+
+    @safe O Slice(this O)(string field, int amount) {
+        auto slice = Bson.emptyObject;
+        slice["$slice"] = Bson(amount);
+        _bson[field] = slice;
+        return cast(O)this;
+    }
+    @safe O Slice(this O)(string field, size_t skip, size_t limit) {
+        auto slice = Bson.emptyObject;
+        slice["$slice"] = [skip, limit].toBson;
+        _bson[field] = slice;
+        return cast(O)this;
+    }
+    unittest{
+        // students: { $elemMatch: { school: 102 } }
+    }
+
     /*
         In(this O, T)(string field, T[] values)
         Adds an "in" filter for an array field 
     */
-    O In(this O, T)(string field, T[] values) {
+    @safe O In(this O, T)(string field, T[] values) {
         auto condition = Bson.emptyObject;
         condition["$in"] = values.toBson;
         _bson[field] = condition;
@@ -139,7 +257,7 @@ class DBsonFilter {
         Lt(this O)(string field, string value)
         Adds an "less than" filter for field
     */
-    O Lt(this O, T)(string field, T value) {
+    @safe O Lt(this O, T)(string field, T value) {
         if (_bson[field].type != Bson.Type.null_) {
             auto condition = _bson[field];
             condition["$lt"] = Bson(value);
@@ -160,7 +278,7 @@ class DBsonFilter {
     /*
     anyLe() - Creates an less than or equal filter for an array field. 
     */
-    O Le(this O, T)(string field, string value) {
+    @safe O Le(this O, T)(string field, string value) {
         // TODO
         return cast(O)this;
     }
@@ -171,7 +289,7 @@ class DBsonFilter {
     /*
     anyNe() - Creates a not equal filter for an array field. 
     */
-    O Ne(this O, T)(string field, string value) {
+    @safe O Ne(this O, T)(string field, string value) {
         // TODO
         return cast(O)this;
     }
@@ -182,15 +300,15 @@ class DBsonFilter {
     /*
     or() - creates an or field. 
     */
-    O Or(this O)(DBsonFilter[] conditions) {
+    @safe O Or(this O)(DBsonFilter[] conditions) {
         Bson[] bsons; bsons.length = conditions.length;
         foreach(i, condition; conditions) bsons[i] = condition.toBson;
         return this.Or(bsons);
     }    
-    O Or(this O)(Bson[] conditions) {
+    @safe O Or(this O)(Bson[] conditions) {
         return this.Or(Bson(conditions));
     }
-    O Or(this O)(Bson conditions) {
+    @safe O Or(this O)(Bson conditions) {
         _bson["$or"] = conditions;
         return cast(O)this;
     }
@@ -202,7 +320,7 @@ class DBsonFilter {
     /*
         Size to return documents in the collection where the array size of field is value
     */
-    O Size(this O, T)(string field, T value) if (isIntegral!T) {
+    @safe O Size(this O, T)(string field, T value) if (isIntegral!T) {
         if (_bson[field].type != Bson.Type.null_) {
             auto condition = _bson[field];
             condition["$size"] = Bson(value);
@@ -221,7 +339,7 @@ class DBsonFilter {
     }
 
     bool opEquals(string txt) { return (toString == txt); }
-    Bson toBson() {
+    @safe Bson toBson() {
         return _bson;
     }
     override string toString() {
