@@ -15,10 +15,11 @@ public import uim.oop;
 // Local packages
 public import dbs.mongo.commands;
 public import dbs.mongo.classes;
-
-public import dbs.mongo.bson;
-public import dbs.mongo.filter;
-public import dbs.mongo.update;
+public import dbs.mongo.enumerations;
+public import dbs.mongo.errors;
+public import dbs.mongo.exceptions;
+public import dbs.mongo.interfaces;
+public import dbs.mongo.mixins;
 
 @safe Bson[] toBson(T)(T[] values) {
     Bson[] results; results.length = values.length;
