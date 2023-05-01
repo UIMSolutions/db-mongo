@@ -1,6 +1,6 @@
-module uim.mongo.commands.query_write;
+module dbs.mongo.commands.query_write;
 
-import uim.mongo;
+import dbs.mongo;
 
 /// Delete all documents in the specified collection by specifying an empty query condition and a limit of 0.
 /* Bson deleteDocuments(MongoDatabase db, string collectionName, Bson selector, bool ordered = true) {

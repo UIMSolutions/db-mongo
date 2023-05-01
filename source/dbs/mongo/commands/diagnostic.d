@@ -1,3 +1,3 @@
-module uim.mongo.commands.diagnostic;
+module dbs.mongo.commands.diagnostic;
 
-import uim.mongo;
+import dbs.mongo;

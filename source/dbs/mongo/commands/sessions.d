@@ -1,3 +1,3 @@
-module uim.mongo.commands.sessions;
+module dbs.mongo.commands.sessions;
 
-import uim.mongo;
+import dbs.mongo;

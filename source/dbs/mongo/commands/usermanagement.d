@@ -1,6 +1,6 @@
-module uim.mongo.commands.usermanagement;
+module dbs.mongo.commands.usermanagement;
 
-import uim.mongo;
+import dbs.mongo;
 
 @safe:
 struct UserInfo{ string user; string db; }

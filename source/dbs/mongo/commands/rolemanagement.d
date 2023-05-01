@@ -1,6 +1,6 @@
-module uim.mongo.commands.rolemanagement;
+module dbs.mongo.commands.rolemanagement;
 
-import uim.mongo;
+import dbs.mongo;
 
 @safe:
 Bson rolesInfo(MongoDatabase db) {

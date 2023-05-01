@@ -1,3 +1,3 @@
-module uim.mongo.commands.queryplan;
+module dbs.mongo.commands.queryplan;
 
-import uim.mongo;
+import dbs.mongo;

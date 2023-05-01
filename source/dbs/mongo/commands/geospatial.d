@@ -1,3 +1,3 @@
-module uim.mongo.commands.geospatial;
+module dbs.mongo.commands.geospatial;
 
-import uim.mongo;
+import dbs.mongo;

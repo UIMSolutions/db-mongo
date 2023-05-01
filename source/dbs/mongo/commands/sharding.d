@@ -1,3 +1,3 @@
-module uim.mongo.commands.sharding;
+module dbs.mongo.commands.sharding;
 
-import uim.mongo;
+import dbs.mongo;

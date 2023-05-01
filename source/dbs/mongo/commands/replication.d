@@ -1,3 +1,3 @@
-module uim.mongo.commands.replication;
+module dbs.mongo.commands.replication;
 
-import uim.mongo;
+import dbs.mongo;

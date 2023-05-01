@@ -1,3 +1,3 @@
-module uim.mongo.commands.monitoring;
+module dbs.mongo.commands.monitoring;
 
-import uim.mongo;
+import dbs.mongo;

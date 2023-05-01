@@ -1,4 +1,4 @@
-module uim.mongo.commands;
+module dbs.mongo.commands;
 
-public import uim.mongo.commands.administration;
-public import uim.mongo.commands.usermanagement;
+public import dbs.mongo.commands.administration;
+public import dbs.mongo.commands.usermanagement;
