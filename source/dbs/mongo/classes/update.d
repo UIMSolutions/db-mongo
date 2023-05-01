@@ -1,4 +1,4 @@
-module dbs.mongo.update;
+module dbs.mongo.classes.update;
 
 import dbs.mongo;
 

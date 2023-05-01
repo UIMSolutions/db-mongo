@@ -1,4 +1,4 @@
-﻿module dbs.mongo.bson;
+﻿module dbs.mongo.classes.bson;
 
 import dbs.mongo;
 

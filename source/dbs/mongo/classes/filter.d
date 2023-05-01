@@ -1,4 +1,4 @@
-module dbs.mongo.filter;
+module dbs.mongo.classes.filter;
 
 import dbs.mongo;
 
