@@ -1,6 +1,6 @@
-module uim.mongo.filter;
+module dbs.mongo.filter;
 
-import uim.mongo;
+import dbs.mongo;
 
 class DBsonFilter {
     this() {

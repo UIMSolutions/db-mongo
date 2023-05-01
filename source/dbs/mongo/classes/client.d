@@ -1,6 +1,6 @@
-module uim.mongo.classes.client;
+module dbs.mongo.classes.client;
 
-import uim.mongo;
+import dbs.mongo;
 
 class DMGOClient {
   this() {}

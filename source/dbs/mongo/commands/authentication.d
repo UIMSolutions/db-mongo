@@ -1,3 +1,3 @@
-module uim.mongo.commands.authentication;
+module dbs.mongo.commands.authentication;
 
-import uim.mongo;
+import dbs.mongo;

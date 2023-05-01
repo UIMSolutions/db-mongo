@@ -1,6 +1,6 @@
-module uim.mongo.update;
+module dbs.mongo.update;
 
-import uim.mongo;
+import dbs.mongo;
 
 class DBsonUpdate { 
     this() {

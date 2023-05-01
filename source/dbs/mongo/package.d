@@ -1,4 +1,4 @@
-﻿module uim.mongo;
+﻿module dbs.mongo;
 
 // Standard libraries
 public import std.stdio;
@@ -13,12 +13,12 @@ public import uim.core;
 public import uim.oop;
 
 // Local packages
-public import uim.mongo.commands;
-public import uim.mongo.classes;
+public import dbs.mongo.commands;
+public import dbs.mongo.classes;
 
-public import uim.mongo.bson;
-public import uim.mongo.filter;
-public import uim.mongo.update;
+public import dbs.mongo.bson;
+public import dbs.mongo.filter;
+public import dbs.mongo.update;
 
 @safe Bson[] toBson(T)(T[] values) {
     Bson[] results; results.length = values.length;

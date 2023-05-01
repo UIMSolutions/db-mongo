@@ -1,6 +1,6 @@
-module uim.mongo.classes.sessionstore;
+module dbs.mongo.classes.sessionstore;
 
-import uim.mongo;
+import dbs.mongo;
 
 class DMGOSessionStore {
   this() {}

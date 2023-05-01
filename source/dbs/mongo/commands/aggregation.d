@@ -1,4 +1,4 @@
-module uim.mongo.commands.aggregation;
+module dbs.mongo.commands.aggregation;
 
-import uim.mongo;
+import dbs.mongo;
 

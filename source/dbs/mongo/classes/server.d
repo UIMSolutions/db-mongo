@@ -1,6 +1,6 @@
-module uim.mongo.classes.server;
+module dbs.mongo.classes.server;
 
-import uim.mongo;
+import dbs.mongo;
 
 class DMGOServer {
   this() {}

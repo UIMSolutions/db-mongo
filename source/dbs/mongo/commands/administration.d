@@ -1,6 +1,6 @@
-module uim.mongo.commands.administration;
+module dbs.mongo.commands.administration;
 
-import uim.mongo; 
+import dbs.mongo; 
 
 @safe:
 /// The dropDatabase command drops the database, deleting the associated data files.

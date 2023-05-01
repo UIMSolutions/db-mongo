@@ -1,6 +1,6 @@
-module uim.mongo.classes.collection;
+module dbs.mongo.classes.collection;
 
-import uim.mongo;
+import dbs.mongo;
 
 class DMGOCollection {
   this() {}

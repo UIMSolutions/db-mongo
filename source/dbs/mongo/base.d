@@ -1,6 +1,6 @@
-﻿module uim.mongo.bson;
+﻿module dbs.mongo.bson;
 
-import uim.mongo;
+import dbs.mongo;
 
 @safe:
 	class DBSON {
