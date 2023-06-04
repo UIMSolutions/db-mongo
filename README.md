@@ -1,2 +1,2 @@
-# Library 📚 uim-mongo
+# Database 🍿 uim-mongo
 D helper for mongo projects
